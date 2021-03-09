@@ -54,7 +54,6 @@ inputPanel(
 
 renderPlot({
   tsnedata <- Rtsne(iris,check_duplicates = FALSE, perplexity =   input$Perplexity)
-
   plotdata <- as.data.frame(tsnedata$Y)
   ggplot(plotdata,aes(x=V1,y=V2)) +geom_jitter(aes(colour = iris$Species))
 })
