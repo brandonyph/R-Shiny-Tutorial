@@ -1,0 +1,12 @@
+name: test
+title: test
+username:
+account: brandon-yeoph
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3758753
+bundleId: 4319171
+url: https://brandon-yeoph.shinyapps.io/test/
+when: 1615261787.31979
+asMultiple: FALSE
+asStatic: FALSE
