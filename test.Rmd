@@ -1,0 +1,61 @@
+---
+title: "Testing"
+author: "Brandon"
+date: "3/8/2021"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(Rtsne)
+
+tsnedata <- Rtsne(iris,check_duplicates = FALSE,perplexity = 30)
+plotdata <- tsnedata$Y
+```
+
+This website is created by Brandonyeo in Rstudio using the default teplate and export to Rshinny.io as partof the example for Rstudio-shiny-Tutorials
+
+Watch the original video here:
+
+
+Downloadthe sources code here
+[My Github Page](https://github.com/brandonyph)
+
+
+To learn more, see [Interactive Documents](http://rmarkdown.rstudio.com/authoring_shiny.html).
+
+## Inputs and Outputs
+
+You can embed Shiny inputs and outputs in your document. Outputs are automatically updated whenever inputs change.  This demonstrates how a standard R plot can be made interactive by wrapping it in the Shiny `renderPlot` function. The `selectInput` and `sliderInput` functions create the input widgets used to drive the plot.
+
+```{r eruptions, echo=TRUE}
+inputPanel(
+  selectInput("n_breaks", label = "Size of Points",
+              choices = c(1,2,3,4,5,6,7,8,9,10), selected = 3),
+  
+  sliderInput("bw_adjust", label = "Shape of Points:",
+              min = 1, max = 20, value = 1, step = 1)
+)
+
+renderPlot({
+  ggplot(faithful,aes(x=eruptions,y=waiting))   +geom_jitter(shape=input$bw_adjust, size=as.numeric(input$n_breaks))
+})
+```
+
+
+```{r tsne, echo=TRUE}
+inputPanel(
+  sliderInput("Perplexity", label = "Perplexity:",
+              min = 1, max = 45, value = 1, step = 1)
+)
+
+
+renderPlot({
+  tsnedata <- Rtsne(iris,check_duplicates = FALSE, perplexity =   input$Perplexity)
+
+  plotdata <- as.data.frame(tsnedata$Y)
+  ggplot(plotdata,aes(x=V1,y=V2)) +geom_jitter()
+})
+```
