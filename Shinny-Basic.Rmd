@@ -1,5 +1,5 @@
 ---
-title: "Testing"
+title: "Shinny Basic"
 author: "Brandon"
 date: "3/8/2021"
 output: html_document
@@ -7,7 +7,7 @@ runtime: shiny
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(include = FALSE)
 library(ggplot2)
 library(Rtsne)
 
@@ -17,12 +17,10 @@ plotdata <- tsnedata$Y
 
 This website is created by Brandonyeo in Rstudio using the default teplate and export to Rshinny.io as partof the example for Rstudio-shiny-Tutorials
 
-Watch the original video here:
-
+Watch the original video here:R-Shinny-Tutorial[https://www.youtube.com/channel/UCrpq9hzMQSq0ldVcXlLgpvQ]
 
 Downloadthe sources code here
 [My Github Page](https://github.com/brandonyph)
-
 
 To learn more, see [Interactive Documents](http://rmarkdown.rstudio.com/authoring_shiny.html).
 

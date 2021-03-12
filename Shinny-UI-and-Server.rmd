@@ -1,0 +1,118 @@
+---
+title: "Shinny UI and Server"
+author: "Brandon"
+date: "3/12/2021"
+output:
+  md_document:
+    variant: gfm
+---
+
+```{r setup, include=FALSE}
+library(shiny)
+library(shinythemes)
+library(ggplot2)
+library(ggpubr)
+library(pheatmap)
+iris <- iris
+
+#Based on https://towardsdatascience.com/build-your-first-shiny-web-app-in-r-72f9538f9868
+
+```
+
+## Basic UI Example
+```{r}
+ui <- fluidPage(theme = shinytheme("cerulean"),
+                navbarPage(
+                  "Shinny Page",
+                  
+                    tabPanel("Main Tab",
+                              sidebarPanel("This is the side"),
+                              mainPanel("This is the Main")
+                              ),
+                    
+                    
+                    tabPanel("Tab2","In Progress")
+                  )
+      )
+```
+
+
+
+
+
+```{r include=FALSE}
+
+ui <- fluidPage(theme = shinytheme("cerulean"),
+                navbarPage(
+                  "Shinny Page",
+                  tabPanel("Main Tab",
+                           
+                        sidebarPanel(
+                           selectInput(
+                            inputId = "SelectPlot",
+                            label = "TypeofPlot",
+                            choices = c("Scatter","Jitter","Line"),
+                            selected = "Scatter"
+                            ),
+                           
+                          sliderInput(
+                            inputId="Shape", 
+                            label="Shape of Plot", 
+                            min=1,
+                            max=20, 
+                            step=1,
+                            value=1
+                            ),
+                          
+                          ),
+                        
+                        
+                          mainPanel(
+                             h1("Output"),
+                             h4("Plot"),
+                             plotOutput("distPlot"),
+                            ),
+                        
+                        
+                        ),
+                  tabPanel("Tab2","In Progress"),
+                  tabPanel("Tab3","In Progress")
+                  )
+      )
+
+
+```
+
+
+
+```{r echo=TRUE}
+
+server <- function(input, output) {
+  
+  output$distPlot <- renderPlot({
+    
+    
+    if(input$SelectPlot =="Jitter"){
+      a <- ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width)) + geom_jitter(shape=input$Shape)
+    }
+    
+     if(input$SelectPlot =="Scatter"){
+      a <- ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width)) + geom_point(shape=input$Shape)
+     }
+    
+     if(input$SelectPlot =="Line"){
+      a <- ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width)) + geom_line(col=input$Shape)
+     }
+  
+    
+    a
+  })#output$dist
+}#Server
+
+```
+
+
+```{r echo=TRUE}
+shinyApp(ui = ui, server = server)
+```
+
